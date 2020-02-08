@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import TaskCard from "./TaskCard";
-import { styled } from "styled-components";
+import TaskList from "./screens/planning/TaskList";
+import { createGlobalStyle } from "styled-components";
 
 const TODOS = [
   {
@@ -41,18 +41,17 @@ const TODOS = [
   }
 ];
 
+const GlobalStyle = createGlobalStyle`
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  }
+  `;
+
 function App() {
   return (
     <div>
-      {TODOS.map(({ context, title }, i) => (
-        <div
-          css={css`
-            color: red;
-          `}
-        >
-          <TaskCard key={i} context={context} title={title} />
-        </div>
-      ))}
+      <GlobalStyle />
+      <TaskList tasks={TODOS} />
     </div>
   );
 }
