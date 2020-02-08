@@ -11,11 +11,12 @@ export default function({ tasks }) {
     >
       {tasks.map(({ context, title }, i) => (
         <div
+          key={i}
           css={`
             margin: 8px;
           `}
         >
-          <TaskCard key={i} context={context} title={title} />
+          <TaskCard context={context} title={title} />
         </div>
       ))}
     </div>

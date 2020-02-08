@@ -1,28 +1,9 @@
 import React from "react";
+import HOURS from "./hours";
 
 const ROW_HEIGHT = 60;
 
-export default function() {
-  const hours = [
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23
-  ];
-
+export default function({ blocks }) {
   return (
     <div
       css={`
@@ -36,7 +17,7 @@ export default function() {
       `}
     >
       <div>
-        {hours.map(hour => (
+        {HOURS.map(hour => (
           <div
             key={hour}
             css={`
@@ -62,21 +43,44 @@ export default function() {
           flex: 1;
         `}
       >
-        {hours.map(hour => (
+        {HOURS.map(hour => (
           <div
             key={hour}
             css={`
               border: 1px solid #dadce0;
               border-left: none;
-              border-top: ${hour === hours[0] ? "1px solid #dadce0;" : "none"};
-              flex: 1;
+              border-top: ${hour === HOURS[0] ? "1px solid #dadce0;" : "none"};
               height: ${ROW_HEIGHT}px;
               box-sizing: border-box;
-              display: flex;
-              justify-content: flex-start;
-              align-items: center;
+              position: relative;
             `}
-          ></div>
+          >
+            {blocks.map(block => {
+              if (block.start_time >= hour && block.start_time < hour + 1) {
+                return (
+                  <div
+                    css={`
+                      background: red;
+                      position: absolute;
+                      top: ${(block.start_time - hour) * 100}%;
+                      right: 0;
+                      left: 0;
+                      bottom: ${(hour + 1 - block.end_time) * 100}%;
+                      z-index: 1;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                    `}
+                    key={block.start_time}
+                  >
+                    {block.start_time} - {block.end_time}
+                  </div>
+                );
+              }
+
+              return null;
+            })}
+          </div>
         ))}
       </div>
     </div>
