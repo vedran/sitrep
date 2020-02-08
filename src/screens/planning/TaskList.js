@@ -1,15 +1,23 @@
 import React from "react";
-import { css } from "styled-components";
 import TaskCard from "./TaskCard";
 
 export default function({ tasks }) {
-  return tasks.map(({ context, title }, i) => (
+  return (
     <div
-      css={css`
-        margin: 8px;
+      css={`
+        overflow: scroll;
+        height: 95vh;
       `}
     >
-      <TaskCard key={i} context={context} title={title} />
+      {tasks.map(({ context, title }, i) => (
+        <div
+          css={`
+            margin: 8px;
+          `}
+        >
+          <TaskCard key={i} context={context} title={title} />
+        </div>
+      ))}
     </div>
-  ));
+  );
 }

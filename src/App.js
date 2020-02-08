@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import TaskList from "./screens/planning/TaskList";
+import React from "react";
 import { createGlobalStyle } from "styled-components";
+import TaskList from "./screens/planning/TaskList";
+import Calendar from "./screens/planning/Calendar";
 
 const TODOS = [
   {
@@ -38,6 +39,38 @@ const TODOS = [
   {
     context: "sitrep",
     title: "Redux actions for checking off items"
+  },
+  {
+    context: "sitrep",
+    title: "Setup firebase project"
+  },
+  {
+    context: "sitrep",
+    title: "Create client side firebase auth"
+  },
+  {
+    context: "sitrep",
+    title: "Create firestore database for TODOs by user"
+  },
+  {
+    context: "sitrep",
+    title: "Create cloud function for getting calendar events"
+  },
+  {
+    context: "sitrep",
+    title: "Frontend render existing meeting blocks in calendar"
+  },
+  {
+    context: "sitrep",
+    title: "Setup google calendar auth"
+  },
+  {
+    context: "sitrep",
+    title: "Pull events from Noom calendar"
+  },
+  {
+    context: "sitrep",
+    title: "Sync redux actions with firestore"
   }
 ];
 
@@ -51,7 +84,14 @@ function App() {
   return (
     <div>
       <GlobalStyle />
-      <TaskList tasks={TODOS} />
+      <div
+        css={`
+          display: flex;
+        `}
+      >
+        <TaskList tasks={TODOS} />
+        <Calendar />
+      </div>
     </div>
   );
 }
