@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDrag } from "react-dnd";
 
-export default function({ context, title }) {
+export default function({ context, title, isDragging }) {
+  const [{ opacity }, dragRef] = useDrag({
+    item: { name: title, type: "TODO" },
+    collect: monitor => ({
+      opacity: monitor.isDragging() ? 0.8 : 1
+    })
+  });
+
   return (
     <div
+      ref={dragRef}
       css={`
         background: white;
         box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),

@@ -1,5 +1,7 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
+import { DndProvider } from "react-dnd";
+import Backend from "react-dnd-html5-backend";
 import TaskList from "./screens/planning/TaskList";
 import Calendar from "./screens/planning/Calendar";
 
@@ -16,14 +18,16 @@ function App() {
   return (
     <div>
       <GlobalStyle />
-      <div
-        css={`
-          display: flex;
-        `}
-      >
-        <TaskList tasks={TODOS} />
-        <Calendar blocks={BLOCKS} />
-      </div>
+      <DndProvider backend={Backend}>
+        <div
+          css={`
+            display: flex;
+          `}
+        >
+          <TaskList tasks={TODOS} />
+          <Calendar blocks={BLOCKS} />
+        </div>
+      </DndProvider>
     </div>
   );
 }

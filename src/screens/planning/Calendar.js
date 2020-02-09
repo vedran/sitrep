@@ -1,4 +1,5 @@
 import React from "react";
+import Block from "./Block";
 import HOURS from "./hours";
 
 const ROW_HEIGHT = 60;
@@ -60,23 +61,12 @@ export default function({ blocks }) {
                 block => block.start_time >= hour && block.start_time < hour + 1
               )
               .map(block => (
-                <div
-                  css={`
-                    background: red;
-                    position: absolute;
-                    top: ${(block.start_time - hour) * 100}%;
-                    right: 0;
-                    left: 0;
-                    bottom: ${(hour + 1 - block.end_time) * 100}%;
-                    z-index: 1;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                  `}
+                <Block
                   key={block.start_time}
-                >
-                  {block.start_time} - {block.end_time}
-                </div>
+                  hour={hour}
+                  startTime={block.start_time}
+                  endTime={block.end_time}
+                />
               ))}
           </div>
         ))}
