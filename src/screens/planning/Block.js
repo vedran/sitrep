@@ -1,17 +1,23 @@
 import React from "react";
 import { useDrop } from "react-dnd";
+import { useDispatch } from "react-redux";
+import { addTodoToBlock } from "../../slices/blocks";
 
 export default function({
   accept,
   lastDroppedItem,
-  onDrop,
+  id,
   startTime,
   endTime,
   hour
 }) {
+  const dispatch = useDispatch();
+
   const [{ isOver, canDrop }, dropRef] = useDrop({
     accept: ["TODO"],
-    drop: onDrop,
+    drop: item => {
+      dispatch(addTodoToBlock({ blockId: id, todoId: item.id }));
+    },
     collect: monitor => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop()

@@ -1,10 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import Block from "./Block";
 import HOURS from "./hours";
 
 const ROW_HEIGHT = 60;
 
-export default function({ blocks }) {
+export default function() {
+  const blocks = useSelector(state => state.blocks);
+
   return (
     <div
       css={`
@@ -56,16 +60,19 @@ export default function({ blocks }) {
               position: relative;
             `}
           >
-            {blocks
+            {blocks.allIds
               .filter(
-                block => block.start_time >= hour && block.start_time < hour + 1
+                id =>
+                  blocks.byId[id].start_time >= hour &&
+                  blocks.byId[id].start_time < hour + 1
               )
-              .map(block => (
+              .map(id => (
                 <Block
-                  key={block.start_time}
+                  key={id}
                   hour={hour}
-                  startTime={block.start_time}
-                  endTime={block.end_time}
+                  id={id}
+                  startTime={blocks.byId[id].start_time}
+                  endTime={blocks.byId[id].end_time}
                 />
               ))}
           </div>

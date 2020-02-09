@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDrag } from "react-dnd";
+import { useSelector } from "react-redux";
 
-export default function({ context, title, isDragging }) {
+export default function({ isDragging, id }) {
+  const { context, title } = useSelector(state => state.todos.byId[id]);
+
   const [{ opacity }, dragRef] = useDrag({
-    item: { name: title, type: "TODO" },
+    item: { name: title, type: "TODO", id },
     collect: monitor => ({
       opacity: monitor.isDragging() ? 0.8 : 1
     })

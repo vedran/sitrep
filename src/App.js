@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createGlobalStyle } from "styled-components";
 import { DndProvider } from "react-dnd";
+import { useDispatch } from "react-redux";
 import Backend from "react-dnd-html5-backend";
-import TaskList from "./screens/planning/TaskList";
+
+import TodoList from "./screens/planning/TodoList";
 import Calendar from "./screens/planning/Calendar";
+
+import { loadTodos } from "./slices/todos";
+import { loadBlocks } from "./slices/blocks";
 
 import TODOS from "./todos";
 import BLOCKS from "./blocks";
@@ -15,6 +20,13 @@ const GlobalStyle = createGlobalStyle`
   `;
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadTodos(TODOS));
+    dispatch(loadBlocks(BLOCKS));
+  }, [dispatch]);
+
   return (
     <div>
       <GlobalStyle />
@@ -24,8 +36,8 @@ function App() {
             display: flex;
           `}
         >
-          <TaskList tasks={TODOS} />
-          <Calendar blocks={BLOCKS} />
+          <TodoList />
+          <Calendar />
         </div>
       </DndProvider>
     </div>

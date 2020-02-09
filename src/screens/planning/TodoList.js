@@ -1,7 +1,9 @@
 import React from "react";
-import TaskCard from "./TaskCard";
+import TodoCard from "./TodoCard";
+import { useSelector } from "react-redux";
 
-export default function({ tasks }) {
+export default function() {
+  const todoIds = useSelector(state => state.todos.allIds);
   return (
     <div
       css={`
@@ -9,14 +11,14 @@ export default function({ tasks }) {
         height: 95vh;
       `}
     >
-      {tasks.map(({ context, title }, i) => (
+      {todoIds.map(id => (
         <div
-          key={i}
+          key={id}
           css={`
             margin: 8px;
           `}
         >
-          <TaskCard context={context} title={title} />
+          <TodoCard id={id} />
         </div>
       ))}
     </div>
