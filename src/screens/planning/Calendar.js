@@ -55,31 +55,29 @@ export default function({ blocks }) {
               position: relative;
             `}
           >
-            {blocks.map(block => {
-              if (block.start_time >= hour && block.start_time < hour + 1) {
-                return (
-                  <div
-                    css={`
-                      background: red;
-                      position: absolute;
-                      top: ${(block.start_time - hour) * 100}%;
-                      right: 0;
-                      left: 0;
-                      bottom: ${(hour + 1 - block.end_time) * 100}%;
-                      z-index: 1;
-                      display: flex;
-                      justify-content: center;
-                      align-items: center;
-                    `}
-                    key={block.start_time}
-                  >
-                    {block.start_time} - {block.end_time}
-                  </div>
-                );
-              }
-
-              return null;
-            })}
+            {blocks
+              .filter(
+                block => block.start_time >= hour && block.start_time < hour + 1
+              )
+              .map(block => (
+                <div
+                  css={`
+                    background: red;
+                    position: absolute;
+                    top: ${(block.start_time - hour) * 100}%;
+                    right: 0;
+                    left: 0;
+                    bottom: ${(hour + 1 - block.end_time) * 100}%;
+                    z-index: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                  `}
+                  key={block.start_time}
+                >
+                  {block.start_time} - {block.end_time}
+                </div>
+              ))}
           </div>
         ))}
       </div>
